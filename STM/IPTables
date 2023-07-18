@@ -1,0 +1,225 @@
+Centos 7 main machine
+[root@STM1 ~]# iptables -t nat -F
+[root@STM1 ~]# iptables -A INPUT -s 10.10.10.0/24 -p tcp --dport 3128 -j ACCEPT
+[root@STM1 ~]# yum install squid -y
+
+iptables -D FORWARD (Rule no /line no)
+service iptables save
+
+    1  systemctl status firewalld
+    2  systemctl stop firewalld
+    3  systemctl disable firewalld
+    4  systemctl status firewalld
+    5  history
+    6  yum install iptables-services iptables-utils -y
+    7  systemctl start iptables
+    8  systemctl status iptables
+    9  systemctl enable iptables
+   10  iptables -L
+   11  ip a
+   12  cat /proc/sys/net/ipv4/ip_forward
+   13  vi /etc/sysctl.conf 
+   14  systemctl status iptables
+   15  iptables -F
+   16  iptables -t nat -A POSTROUTING -s 10.10.10.0/24 -o ens33 -j MASQUERADE 
+   17  iptables -t nat -L
+   18  iptables -L
+   19  cat /etc/resolv.conf 
+   20  iptables -A FORWARD -s 10.10.10.0/24 -d 192.168.100.2 -p udp --dport 53 -j ACCEPT
+   21  iptables -A FORWARD -d 10.10.10.0/24 -s 192.168.100.2 -p udp --sport 53 -j ACCEPT
+   22  iptables -L
+   23  iptables -A FORWARD -s 10.10.10.0/24 -d www.google.com -p udp --dport 443 -j ACCEPT
+   24  iptables -A FORWARD -d 10.10.10.0/24 -s www.google.com -p udp --sport 443 -j ACCEPT
+   25  iptables -L
+   26  iptables -F
+   27  iptables -L
+   28  iptables -A FORWARD -s 10.10.10.0/24 -d www.google.com -p udp --dport 443 -j ACCEPT
+   29  iptables -A FORWARD -d 10.10.10.0/24 -s www.google.com -p udp --sport 443 -j ACCEPT
+   30  iptables -P FORWARD DROP
+   31  iptables -L
+   32  iptables -A FORWARD -s 10.10.10.0/24 -d www.google.com -p udp --dport 443 -j ACCEPT
+   33  iptables -A FORWARD -d 10.10.10.0/24 -s www.google.com -p udp --sport 443 -j ACCEPT
+
+#######################################################################################################
+
+[root@STM2 ~]# history
+    1  systemctl stop firewalld
+    2  systemctl disable firewalld
+    3  systemctl status firewalld
+    4  ip a
+    5  ping www.google.com
+    6  ping 4.4.4.4
+    7  systemctl restart network
+    8  ping 4.4.4.4
+    9  curl https://www.google.com
+   10  history
+
+#######################################################################################################
+
+
+STM1
+[root@STM1 ~]# history
+    1  systemctl status firewalld
+    2  systemctl stop firewalld
+    3  systemctl disable firewalld
+    4  systemctl status firewalld
+    5  history
+    6  yum install iptables-services iptables-utils -y
+    7  systemctl start iptables
+    8  systemctl status iptables
+    9  systemctl enable iptables
+   10  iptables -L
+   11  ip a
+   12  cat /proc/sys/net/ipv4/ip_forward
+   13  vi /etc/sysctl.conf 
+   14  systemctl status iptables
+   15  iptables -F
+   16  iptables -t nat -A POSTROUTING -s 10.10.10.0/24 -o ens33 -j MASQUERADE 
+   17  iptables -t nat -L
+   18  iptables -L
+   19  cat /etc/resolv.conf 
+   20  iptables -A FORWARD -s 10.10.10.0/24 -d 192.168.100.2 -p udp --dport 53 -j ACCEPT
+   21  iptables -A FORWARD -d 10.10.10.0/24 -s 192.168.100.2 -p udp --sport 53 -j ACCEPT
+   22  iptables -L
+   23  iptables -A FORWARD -s 10.10.10.0/24 -d www.google.com -p udp --dport 443 -j ACCEPT
+   24  iptables -A FORWARD -d 10.10.10.0/24 -s www.google.com -p udp --sport 443 -j ACCEPT
+   25  iptables -L
+   26  iptables -F
+   27  iptables -L
+   28  iptables -A FORWARD -s 10.10.10.0/24 -d www.google.com -p udp --dport 443 -j ACCEPT
+   29  iptables -A FORWARD -d 10.10.10.0/24 -s www.google.com -p udp --sport 443 -j ACCEPT
+   30  iptables -P FORWARD DROP
+   31  iptables -L
+   32  iptables -A FORWARD -s 10.10.10.0/24 -d www.google.com -p udp --dport 443 -j ACCEPT
+   33  iptables -A FORWARD -d 10.10.10.0/24 -s www.google.com -p udp --sport 443 -j ACCEPT
+   34  history
+   35  iptables
+   36  iptables -L
+   37  clear
+   38  iptables -L
+   39  iptables -F
+   40  iptables -L
+   41  clear
+   42  ip a
+   43  iptables -t nat -A POSTROUTING -s 10.10.10.0/24 -o ens33 -j MASQUERADE
+   44  iptables -F
+   45  iptables -L
+   46  iptables -A FORWARD -s 10.10.10.129 -d www.google.com -p tcp --dport 443 -j accept
+   47  clear
+   48  iptables -A FORWARD -s 10.10.10.129 -d www.youtube.com -p tcp --dport=443 -j accept
+   49  iptables -A FORWARD -s 10.10.10.129 -d www.youtube.com -p tcp --dport=443 -j ACCEPT
+   50  iptables -P FORWARD DROP
+   51  iptables -A FORWARD -s 10.10.10.129 -d www.youtube.com -p tcp --dport=443 -j ACCEPT
+   52  iptables -L
+   53  iptables -F
+   54  iptables -P FORWARD DROP
+   55  iptables -L
+   56  iptables -A FORWARD -s 10.10.10.129 -d www.youtube.com -p tcp --dport=443 -j ACCEPT
+   57  iptables -L
+   58  iptables -F
+   59  clear
+   60  iptables -F
+   61  iptables -P FORWARD DROP
+   62  iptables -L
+   63  iptables -t nat -A POSTROUTING -s 10.10.10.0/24 -o ens33 -j MASQUERADE
+   64  iptables -A FORWARD -s 10.10.10.129 -d www.youtube.com -p tcp --dport=443 -j ACCEPT
+   65  iptables -L
+   66  iptables -P FORWARD ACCEPT
+   67  iptables -L
+   68  iptables -F
+   69  iptables -A FORWARD -s 10.10.10.129 -d www.youtube.com -p tcp --dport=443 -j ACCEPT
+   70  iptables -L
+   71  iptables -t nat -L
+   72  iptables -F
+   73  iptables -L
+   74  clear
+   75  iptables -P FORWARD DROP
+   76  iptables -L
+   77  iptables -A FORWARD -s 10.10.10.129 -d www.youtube.com -p tcp --dport=443 -j ACCEPT
+   78  iptables -A FORWARD -d 10.10.10.129 -s www.youtube.com -p tcp --dport=443 -j ACCEPT
+   79  iptables -L
+   80  nslookup www.youtube.com
+   81  iptables -t nat -A POSTROUTING -s 10.10.10.0/24 -o ens33 -j MASQUERADE
+   82  iptables -L
+   83  iptables -F
+   84  iptables -L
+   85  ip a
+   86  iptables -t nat -A POSTROUTING -s 10.10.10.0/24 -o ens33 -j MASQUERADE
+   87  iptables -t nat -L
+   88  iptables -L
+   89  iptables -A FORWARD -s 10.10.10.0/24 -d 192.168.100.2 -p udp --dport 53 -j ACCEPT
+   90  iptables -A FORWARD -d 10.10.10.0/24 -s 192.168.100.2 -p udp --sport 53 -j ACCEPT
+   91  iptables -A FORWARD -s 10.10.10.129 -d www.youtube.com -p tcp --dport 443 -j ACCEPT
+   92  iptables -A FORWARD -d 10.10.10.129 -s www.youtube.com -p tcp --sport 443 -j ACCEPT
+   93  iptables -A FORWARD -s 10.10.10.129 -d www.microsoft.com -p tcp --dport 443 -j ACCEPT
+   94  iptables -A FORWARD -d 10.10.10.129 -s www.microsoft.com -p tcp --sport 443 -j ACCEPT
+   95  nslookup www.microsoft.com
+   96  iptables -A FORWARD -s 10.10.10.129 -d 23.32.177.236 -p tcp --dport 443 -j ACCEPT
+   97  iptables -A FORWARD -d 10.10.10.129 -s 23.32.177.236 -p tcp --sport 443 -j ACCEPT
+   98  iptables -A FORWARD -s 10.10.10.129 -d www.cisco.com -p tcp --dport 443 -j ACCEPT
+   99  iptables -A FORWARD -d 10.10.10.129 -s www.cisco.com -p tcp --sport 443 -j ACCEPT
+  100  iptables -A FORWARD -s 10.10.10.129 -d aws.amazon.com -p tcp --dport 443 -j ACCEPT
+  101  iptables -A FORWARD -d 10.10.10.129 -s aws.amazon.com -p tcp --sport 443 -j ACCEPT
+  102  iptables -A FORWARD -s 10.10.10.130 -d azure.microsoft.com -p tcp --dport 443 -j ACCEPT
+  103  iptables -A FORWARD -d 10.10.10.130 -s azure.microsoft.com -p tcp --sport 443 -j ACCEPT
+  104  nslookup azure.microsoft.com
+  105  iptables -A FORWARD -s 10.10.10.130 -d 104.80.52.95 -p tcp --dport 443 -j ACCEPT
+  106  iptables -A FORWARD -d 10.10.10.130 -s 104.80.52.95 -p tcp --sport 443 -j ACCEPT
+  107  iptables -A FORWARD -s 10.10.10.0/24 -d www.google.com -p tcp --dport 443 -j ACCEPT
+  108  iptables -A FORWARD -d 10.10.10.0/24 -s www.google.com -p tcp --sport 443 -j ACCEPT
+  109  iptables -A FORWARD -s 10.10.10.0/24 -d www.wikipedia.org -p tcp --dport 443 -j ACCEPT
+  110  iptables -A FORWARD -d 10.10.10.0/24 -s www.wikipedia.org -p tcp --sport 443 -j ACCEPT
+  111  iptables -A FORWARD -s 10.10.10.0/24 -d www.centos.org -p tcp --dport 443 -j ACCEPT
+  112  iptables -A FORWARD -d 10.10.10.0/24 -s www.centos.org -p tcp --sport 443 -j ACCEPT
+  113  nslookup azure.microsoft.com
+  114  iptables -A FORWARD -s 10.10.10.130 -d 20.43.132.131 -p tcp --sport 443 -j ACCEPT
+  115  iptables -A FORWARD -s 10.10.10.130 -d 20.43.132.131 -p tcp --dport 443 -j ACCEPT
+  116  iptables -A FORWARD -d 10.10.10.130 -s 20.43.132.131 -p tcp --sport 443 -j ACCEPT
+  117  iptables -L
+  118  iptables -A FORWARD -s 10.10.10.130 -d www.heroku.com -p tcp --dport 443 -j ACCEPT
+  119  iptables -A FORWARD -d 10.10.10.130 -s www.heroku.com -p tcp --sport 443 -j ACCEPT
+  120  nslookup www.heroku.com
+  121  iptables -A FORWARD -s 10.10.10.130 -d 108.159.61.82 -p tcp --dport 443 -j ACCEPT
+  122  iptables -A FORWARD -d 10.10.10.130 -s 108.159.61.82 -p tcp --sport 443 -j ACCEPT
+  123  history
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+[root@STM2 ~]# history
+    1  systemctl stop firewalld
+    2  systemctl disable firewalld
+    3  systemctl status firewalld
+    4  ip a
+    5  ping www.google.com
+    6  ping 4.4.4.4
+    7  systemctl restart network
+    8  ping 4.4.4.4
+    9  curl https://www.google.com
+   10  history
+   11  ip a
+   12  nslookup www.youtube.com
+   13  curl https://www.youtube.com
+   14  curl https://www.microsoft.com
+   15  curl https://www.cisco.com
+   16  curl https://aws.amazon.com
+   17  history
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+STATEFULL PACKET INSPECTION FIREWALL
+iptables -t nat -A POSTROUTING -s 10.10.10.0/24 -o ens33 -j MASQUERADE
+  127  iptables -A FORWARD -s 10.10.10.0/24 -d 192.168.100.2 -p udp --dport 53 -j ACCEPT
+  128  iptables -A FORWARD -d 10.10.10.0/24 -s 192.168.100.2 -p udp --sport 53 -j ACCEPT
+  129  iptables -L
+  130  iptables -A FORWARD -s 10.10.10.129 -d www.youtube.com -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
+  131  iptables -A FORWARD -d 10.10.10.129 -s www.youtube.com -p tcp --sport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+iptables -A INPUT -i ens33 -p ICMP --icmp-type echo-request -j DROP
+
+iptables -A FORWARD -d 10.10.10.0/24 -p ICMP --icmp-type echo-request -j DROP
+
+iptables -A INPUT -i ens33 -p icmp -m limit --limit 5/s -j ACCEPT
+
+ping -l 128 192.168.100.2
+
+iptables -A INPUT -i interface -p icmp -m length --length > 128 -j DROP
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
